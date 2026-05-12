@@ -1,10 +1,10 @@
 # ── Hraðar ──────────────────────────────────────────────
-SPEED_FAST   = 200
+SPEED_FAST   = 240
 SPEED_MEDIUM = 170
 SPEED_SLOW   = 80
 
 # ── Þröskuldar (cm) ──────────────────────────────────────
-THRESHOLD_FAST      = 70    # > 60cm → full speed
+THRESHOLD_FAST      = 120    # > 60cm → full speed
 THRESHOLD_MEDIUM    = 40    # 30–60cm → medium
                             # < 30cm → slow + beygja
 EMERGENCY_DIST      = 12    # < 12cm í framsvæði → bakka
@@ -12,8 +12,8 @@ EMERGENCY_ZONE_MIN  = 280   # emergency zone byrjar
 EMERGENCY_ZONE_MAX  = 80    # emergency zone endar (fer yfir 0°)
 
 # ── Beygju offset ────────────────────────────────────────
-OFFSET_SMALL = 60
-OFFSET_LARGE = 120
+OFFSET_SMALL = 75
+OFFSET_LARGE = 125
 
 # ── LiDAR hólf (gráður) ──────────────────────────────────
 # Beint fram
@@ -37,7 +37,7 @@ ZONE_LEFT_SIDE_MIN   = 230
 ZONE_LEFT_SIDE_MAX   = 290
 
 # ── Tímar ────────────────────────────────────────────────
-EMERGENCY_REVERSE_TIME = 2.0   # sek
+EMERGENCY_REVERSE_TIME = 1.0   # sek
 TURN_TIME              = 1   # sek
 
 # ── I2C / Serial ─────────────────────────────────────────
