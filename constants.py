@@ -4,16 +4,16 @@ SPEED_MEDIUM = 170
 SPEED_SLOW   = 80
 
 # ── Þröskuldar (cm) ──────────────────────────────────────
-THRESHOLD_FAST      = 120    # > 60cm → full speed
-THRESHOLD_MEDIUM    = 40    # 30–60cm → medium
+THRESHOLD_FAST      = 60    # > 60cm → full speed
+THRESHOLD_MEDIUM    = 20    # 30–60cm → medium
                             # < 30cm → slow + beygja
 EMERGENCY_DIST      = 12    # < 12cm í framsvæði → bakka
 EMERGENCY_ZONE_MIN  = 280   # emergency zone byrjar
 EMERGENCY_ZONE_MAX  = 80    # emergency zone endar (fer yfir 0°)
 
 # ── Beygju offset ────────────────────────────────────────
-OFFSET_SMALL = 75
-OFFSET_LARGE = 125
+OFFSET_SMALL = 65
+OFFSET_LARGE = 95
 
 # ── LiDAR hólf (gráður) ──────────────────────────────────
 # Beint fram
