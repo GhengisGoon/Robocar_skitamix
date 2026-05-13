@@ -76,9 +76,7 @@ def main():
                 offset = choose_offset(zones, 'medium')
                 drive(SPEED_MEDIUM, offset)
 
-            #  3. Klesst á að ofan eða bufferinn fyllist (Gefur síðustu mælingu aftur og aftur)
-            elif front is not None and front:
-                continue
+           
             #  4. Frjálst → fullur hraði beint áfram 
             else:
                 drive(SPEED_FAST)
