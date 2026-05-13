@@ -27,18 +27,18 @@ def choose_offset(zones, speed_level):
     right_blocked = right_side is not None and right_side < THRESHOLD_MEDIUM
 
     if left_blocked and not right_blocked:
-        return offset_val    # vinstri lokuð → beygja hægri
+        return -offset_val    # vinstri lokuð → beygja hægri
     if right_blocked and not left_blocked:
-        return -offset_val   # hægri lokuð  → beygja vinstri
+        return offset_val   # hægri lokuð  → beygja vinstri
 
     # Nota fram-hólf - beygja í átt að frjálsara svæði
     lf = left_front  if left_front  is not None else 999
     rf = right_front if right_front is not None else 999
 
     if lf > rf:
-        return -offset_val   # vinstri frjálsara → beygja vinstri
+        return offset_val   # vinstri frjálsara → beygja vinstri
     if rf > lf:
-        return offset_val    # hægri frjálsara  → beygja hægri
+        return -offset_val    # hægri frjálsara  → beygja hægri
     return 0
 
 
