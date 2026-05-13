@@ -61,22 +61,25 @@ def main():
                 f"EMG={emg}"
             )
 
-            # ── 1. Emergency - eitthvað < 12cm í 280°–80° ──────────
+            #  1. Emergency - eitthvað < 12cm í 280°–80°
             if emg is not None and emg < EMERGENCY_DIST:
                 emergency_reverse()
                 continue
 
-            # ── 2. Hindrun nálægt beint fram → hægt + stór beygja ──
+            #  2. Hindrun nálægt beint fram → hægt + stór beygja
             if front is not None and front < THRESHOLD_MEDIUM:
                 offset = choose_offset(zones, 'slow')
                 drive(SPEED_SLOW, offset)
 
-            # ── 3. Hindrun í miðlungs fjarlægð → miðlungs + lítil beygja
+            #  3. Hindrun í miðlungs fjarlægð → miðlungs + lítil beygja
             elif front is not None and front < THRESHOLD_FAST:
                 offset = choose_offset(zones, 'medium')
                 drive(SPEED_MEDIUM, offset)
 
-            # ── 4. Frjálst → fullur hraði beint áfram ───────────────
+            #  3. Klesst á að ofan eða bufferinn fyllist (Gefur síðustu mælingu aftur og aftur)
+            elif front is not None and front:
+                continue
+            #  4. Frjálst → fullur hraði beint áfram 
             else:
                 drive(SPEED_FAST)
 
