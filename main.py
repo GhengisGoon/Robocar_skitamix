@@ -1,4 +1,5 @@
 import time
+import playsound3 #$ pip install playsound3
 from constants import (
     THRESHOLD_FAST, THRESHOLD_MEDIUM,
     SPEED_FAST, SPEED_MEDIUM, SPEED_SLOW,
@@ -47,6 +48,9 @@ def main():
     print("  HVR1013 Robot - RPLiDAR S2")
     print("═" * 40)
     time.sleep(1)
+
+    from playsound import playsound
+    playsound('/path/to/a/sound/file/you/want/to/play.mp3')
 
     try:
         while True:
