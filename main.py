@@ -62,8 +62,7 @@ def main():
             zones = get_scan()
             front = zones['front']
             emg   = zones['emergency']
-             # Determine direction for LCD
-            direction, distance = determine_direction(zones)
+
             
             # Update LCD display
             lcd.set_direction(direction, distance)
