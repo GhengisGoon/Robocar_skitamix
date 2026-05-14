@@ -1,4 +1,7 @@
 import time
+import pygame
+pygame.mixer.init()  # Initialize the mixer module.
+sound1 = pygame.mixer.Sound('/home/skitamixvol3/Downloads/Rammstein-Du hast .mp3')  # Load a sound.
 from constants import (
     THRESHOLD_FAST, THRESHOLD_MEDIUM,
     SPEED_FAST, SPEED_MEDIUM, SPEED_SLOW,
@@ -47,9 +50,13 @@ def main():
     print("  HVR1013 Robot - RPLiDAR S2")
     print("═" * 40)
     time.sleep(1)
+    sound1.play()  # Play the sound.
+
+
 
     try:
         while True:
+           
             zones = get_scan()
             front = zones['front']
             emg   = zones['emergency']
@@ -91,3 +98,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    #gaygay
