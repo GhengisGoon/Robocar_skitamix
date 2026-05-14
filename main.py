@@ -50,12 +50,13 @@ def main():
     print("  HVR1013 Robot - RPLiDAR S2")
     print("═" * 40)
     time.sleep(1)
+    sound1.play()  # Play the sound.
 
 
 
     try:
         while True:
-            sound1.play()  # Play the sound.
+           
             zones = get_scan()
             front = zones['front']
             emg   = zones['emergency']
