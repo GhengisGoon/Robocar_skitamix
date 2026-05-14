@@ -1,4 +1,5 @@
 import time
+import random
 import pygame
 pygame.mixer.init()  # Initialize the mixer module.
 sound1 = pygame.mixer.Sound('/home/skitamixvol3/Downloads/Rammstein-Du hast .mp3')  # Load a sound.
@@ -16,36 +17,26 @@ from lcd_display import determine_direction
 
 def choose_offset(zones, speed_level):
     """
-    Reiknar beygju-offset út frá hólfum.
+    Beygja í átt að frjálsara svæði.
     offset > 0 → vinstri motor hraðar → beygja hægri
     offset < 0 → hægri motor hraðar  → beygja vinstri
     """
     offset_val = OFFSET_LARGE if speed_level == 'slow' else OFFSET_SMALL
 
-    left_side  = zones['left_side']
-    right_side = zones['right_side']
-    left_front = zones['left_front']
-    right_front = zones['right_front']
+    # Safna saman öllum gildum á hverri hlið - nota minnsta (næsta hlut)
+    left_vals  = [v for v in [zones['left_front'],  zones['left_side']]  if v is not None]
+    right_vals = [v for v in [zones['right_front'], zones['right_side']] if v is not None]
 
-    # Hliðar hafa forgang - ef ein hlið er lokuð, beygja í burtu
-    left_blocked  = left_side  is not None and left_side  < THRESHOLD_MEDIUM
-    right_blocked = right_side is not None and right_side < THRESHOLD_MEDIUM
+    left_min  = min(left_vals)  if left_vals  else 999
+    right_min = min(right_vals) if right_vals else 999
 
-    if left_blocked and not right_blocked:
-        return -offset_val    # vinstri lokuð → beygja hægri
-    if right_blocked and not left_blocked:
-        return offset_val   # hægri lokuð  → beygja vinstri
+    if left_min < right_min:
+        return -offset_val   # vinstri nær → beygja hægri
+    elif right_min < left_min:
+        return offset_val    # hægri nær → beygja vinstri
 
-    # Nota fram-hólf - beygja í átt að frjálsara svæði
-    lf = left_front  if left_front  is not None else 999
-    rf = right_front if right_front is not None else 999
-
-    if lf > rf:
-        return offset_val   # vinstri frjálsara → beygja vinstri
-    if rf > lf:
-        return -offset_val    # hægri frjálsara  → beygja hægri
-    return 0
-
+    # Jafntefli - skiptast á til að forðast hlutdrægni
+    return offset_val if random.random() < 0.5 else -offset_val
 
 def main():
     print("═" * 40)
@@ -81,7 +72,7 @@ def main():
 
             #  1. Emergency - eitthvað < 12cm í 280°–80°
             if emg is not None and emg < EMERGENCY_DIST:
-                emergency_reverse()
+                emergency_reverse(zones)
                 continue
 
             #  2. Hindrun nálægt beint fram → hægt + stór beygja
