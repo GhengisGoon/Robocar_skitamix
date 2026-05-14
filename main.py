@@ -10,7 +10,6 @@ from constants import (
 )
 from sensor import get_scan, stop_lidar
 from motor  import drive, stop, emergency_reverse
-import lcd_display as lcd
 
 
 def choose_offset(zones, speed_level):
@@ -52,7 +51,6 @@ def main():
     print("═" * 40)
     time.sleep(1)
     sound1.play()  # Play the sound.
-    lcd.start_display()
 
 
 
@@ -62,13 +60,6 @@ def main():
             zones = get_scan()
             front = zones['front']
             emg   = zones['emergency']
-
-            
-            # Update LCD display
-            lcd.set_direction(direction, distance)
-            
-            # Get CPU temperature
-            cpu_temp = lcd.get_cpu_temp()
 
             print(
                 f"F={front}  "
@@ -108,4 +99,4 @@ def main():
 if __name__ == "__main__":
     main()
 
-
+    #gaygay
