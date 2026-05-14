@@ -1,5 +1,5 @@
 import time
-import playsound3 #$ pip install playsound3
+import pygame
 from constants import (
     THRESHOLD_FAST, THRESHOLD_MEDIUM,
     SPEED_FAST, SPEED_MEDIUM, SPEED_SLOW,
@@ -49,11 +49,13 @@ def main():
     print("═" * 40)
     time.sleep(1)
 
-    from playsound import playsound
-    playsound('/path/to/a/sound/file/you/want/to/play.mp3')
+pygame.mixer.init()  # Initialize the mixer module.
+sound1 = pygame.mixer.Sound('/home/skitamixvol3/Downloads/Rammstein-Du hast .mp3')  # Load a sound.
+
 
     try:
         while True:
+            sound1.play()  # Play the sound.
             zones = get_scan()
             front = zones['front']
             emg   = zones['emergency']
