@@ -1,5 +1,7 @@
 import time
 import pygame
+pygame.mixer.init()  # Initialize the mixer module.
+sound1 = pygame.mixer.Sound('/home/skitamixvol3/Downloads/Rammstein-Du hast .mp3')  # Load a sound.
 from constants import (
     THRESHOLD_FAST, THRESHOLD_MEDIUM,
     SPEED_FAST, SPEED_MEDIUM, SPEED_SLOW,
