@@ -20,7 +20,7 @@ for pin in [RS, E, D4, D5, D6, D7]:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, False)
 
-# Global variables for direction (received from main code)
+# Global variables
 current_direction = "clear"
 current_distance = 0
 _running = True
@@ -96,14 +96,16 @@ def update_display():
     lcd_print(f"CPU:{temp:.0f}C", 0, 0)
     
     # Line 1 right side: Direction
-    if current_direction != "clear":
+    if current_direction == "emergency":
+        lcd_print("EMG", 0, 10)
+    elif current_direction != "clear":
         lcd_print(f"{current_direction}", 0, 10)
     else:
         lcd_print("clear", 0, 10)
     
-    # Line 2: Distance if available
+    # Line 2: Distance
     if current_distance > 0:
-        lcd_print(f"{current_distance:.0f}mm", 1, 0)
+        lcd_print(f"{current_distance:.0f}cm", 1, 0)
     else:
         lcd_print("---", 1, 0)
 
@@ -137,6 +139,3 @@ def set_direction(direction, distance=0):
 def get_cpu_temp():
     """Get current CPU temperature"""
     return cpu.temperature
-
-# Auto-start when imported
-start_display()
