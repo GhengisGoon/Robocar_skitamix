@@ -51,7 +51,8 @@ def main():
     print("═" * 40)
     time.sleep(1)
     sound1.play()  # Play the sound.
-
+    # Start LCD display
+    lcd.start_display()
 
 
     try:
@@ -61,11 +62,19 @@ def main():
             front = zones['front']
             emg   = zones['emergency']
 
+            # Determine direction for LCD
+            direction, distance = determine_direction(zones)
+            
+            # Update LCD display
+            lcd.set_direction(direction, distance)
+            
+            # Get CPU temperature (optional - for console output)
+            cpu_temp = lcd.get_cpu_temp()
+
             print(
-                f"F={front}  "
-                f"LF={zones['left_front']}  RF={zones['right_front']}  "
-                f"LS={zones['left_side']}  RS={zones['right_side']}  "
-                f"EMG={emg}"
+                f"CPU:{cpu_temp:.0f}C | Dir:{direction} | Dist:{distance:.0f}cm | "
+                f"F={front} LF={zones['left_front']} RF={zones['right_front']} "
+                f"LS={zones['left_side']} RS={zones['right_side']} EMG={emg}"
             )
 
             #  1. Emergency - eitthvað < 12cm í 280°–80°
