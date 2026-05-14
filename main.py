@@ -10,6 +10,7 @@ from constants import (
 )
 from sensor import get_scan, stop_lidar
 from motor  import drive, stop, emergency_reverse
+import lcd_display
 
 
 def choose_offset(zones, speed_level):
