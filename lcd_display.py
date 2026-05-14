@@ -103,9 +103,11 @@ def update_display():
     else:
         lcd_print("clear", 0, 10)
     
-    # Line 2: Distance
+    # Line 2: Distance (convert cm to mm to match your main code)
     if current_distance > 0:
-        lcd_print(f"{current_distance:.0f}cm", 1, 0)
+        # Distance comes in cm from sensor, convert to mm for display
+        distance_mm = current_distance * 10
+        lcd_print(f"{distance_mm:.0f}mm", 1, 0)
     else:
         lcd_print("---", 1, 0)
 
@@ -134,7 +136,7 @@ def set_direction(direction, distance=0):
     """Set current direction from main code"""
     global current_direction, current_distance
     current_direction = direction
-    current_distance = distance
+    current_distance = distance  # distance is in cm from your sensor
 
 def get_cpu_temp():
     """Get current CPU temperature"""
