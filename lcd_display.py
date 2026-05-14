@@ -103,11 +103,9 @@ def update_display():
     else:
         lcd_print("clear", 0, 10)
     
-    # Line 2: Distance (convert cm to mm to match your main code)
+    # Line 2: Distance
     if current_distance > 0:
-        # Distance comes in cm from sensor, convert to mm for display
-        distance_mm = current_distance * 10
-        lcd_print(f"{distance_mm:.0f}mm", 1, 0)
+        lcd_print(f"{current_distance:.0f}cm", 1, 0)
     else:
         lcd_print("---", 1, 0)
 
@@ -136,8 +134,43 @@ def set_direction(direction, distance=0):
     """Set current direction from main code"""
     global current_direction, current_distance
     current_direction = direction
-    current_distance = distance  # distance is in cm from your sensor
+    current_distance = distance
 
 def get_cpu_temp():
     """Get current CPU temperature"""
     return cpu.temperature
+
+# ADD THIS FUNCTION - to help your main code determine direction
+def determine_direction(zones, EMERGENCY_DIST, THRESHOLD_MEDIUM):
+    """Determine direction and distance from zones for LCD display"""
+    front = zones.get('front')
+    left_side = zones.get('left_side')
+    right_side = zones.get('right_side')
+    left_front = zones.get('left_front')
+    right_front = zones.get('right_front')
+    emg = zones.get('emergency')
+    
+    # Emergency has priority
+    if emg is not None and emg < EMERGENCY_DIST:
+        return "emergency", emg
+    
+    # Check front
+    if front is not None and front < THRESHOLD_MEDIUM:
+        return "front", front
+    
+    # Check sides
+    if left_side is not None and left_side < THRESHOLD_MEDIUM:
+        return "left", left_side
+    
+    if right_side is not None and right_side < THRESHOLD_MEDIUM:
+        return "right", right_side
+    
+    # Check front sides
+    if left_front is not None and left_front < THRESHOLD_MEDIUM:
+        return "left", left_front
+    
+    if right_front is not None and right_front < THRESHOLD_MEDIUM:
+        return "right", right_front
+    
+    # Clear path
+    return "clear", 0
