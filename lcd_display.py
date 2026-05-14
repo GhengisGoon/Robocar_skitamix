@@ -28,8 +28,7 @@ _running = True
 # Initialize CPU temperature sensor
 cpu = CPUTemperature()
 
-# IMPORT - These need to match your constants
-# You can adjust these values or import them from constants
+# Default thresholds (these should match your constants)
 EMERGENCY_DIST = 12  # cm
 THRESHOLD_MEDIUM = 30  # cm
 
@@ -145,7 +144,8 @@ def get_cpu_temp():
     """Get current CPU temperature"""
     return cpu.temperature
 
-# THIS IS THE FUNCTION YOUR MAIN CODE IS LOOKING FOR
+# THIS IS THE FUNCTION YOUR MAIN CODE IS CALLING
+# It needs to be in the global namespace when you import lcd
 def determine_direction(zones):
     """Determine direction and distance from zones for LCD display"""
     front = zones.get('front')
