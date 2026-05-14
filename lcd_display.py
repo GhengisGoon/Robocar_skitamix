@@ -28,6 +28,11 @@ _running = True
 # Initialize CPU temperature sensor
 cpu = CPUTemperature()
 
+# IMPORT - These need to match your constants
+# You can adjust these values or import them from constants
+EMERGENCY_DIST = 12  # cm
+THRESHOLD_MEDIUM = 30  # cm
+
 # LCD Functions
 def pulse_enable():
     GPIO.output(E, True)
@@ -140,8 +145,8 @@ def get_cpu_temp():
     """Get current CPU temperature"""
     return cpu.temperature
 
-# ADD THIS FUNCTION - to help your main code determine direction
-def determine_direction(zones, EMERGENCY_DIST, THRESHOLD_MEDIUM):
+# THIS IS THE FUNCTION YOUR MAIN CODE IS LOOKING FOR
+def determine_direction(zones):
     """Determine direction and distance from zones for LCD display"""
     front = zones.get('front')
     left_side = zones.get('left_side')
