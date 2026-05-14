@@ -51,8 +51,6 @@ def main():
     print("═" * 40)
     time.sleep(1)
 
-pygame.mixer.init()  # Initialize the mixer module.
-sound1 = pygame.mixer.Sound('/home/skitamixvol3/Downloads/Rammstein-Du hast .mp3')  # Load a sound.
 
 
     try:
