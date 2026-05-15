@@ -1,6 +1,6 @@
 # ── Hraðar ──────────────────────────────────────────────
-SPEED_FAST   = 240
-SPEED_MEDIUM = 170
+SPEED_FAST   = 200
+SPEED_MEDIUM = 140
 SPEED_SLOW   = 100
 
 # ── Þröskuldar (cm) ──────────────────────────────────────
