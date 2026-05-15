@@ -40,9 +40,29 @@ def turn_right():
     stop()
 
 
-def emergency_reverse():
-    """Bakkar á medium speed í 2 sek, stoppar síðan."""
+def emergency_reverse(zones=None):
+    """Bakkar á medium speed, snýr svo í frjálsari átt."""
     print("  [EMERGENCY] Bakka!")
     _send_motors(-SPEED_MEDIUM, SPEED_MEDIUM)
     time.sleep(EMERGENCY_REVERSE_TIME)
+    stop()
+
+    # Bera saman hliðar til að snúa í frjálsari átt
+    left_vals  = []
+    right_vals = []
+    if zones is not None:
+        left_vals  = [v for v in [zones.get('left_front'), zones.get('left_side')]  if v is not None]
+        right_vals = [v for v in [zones.get('right_front'), zones.get('right_side')] if v is not None]
+
+    left_min  = min(left_vals)  if left_vals  else 999
+    right_min = min(right_vals) if right_vals else 999
+
+    if left_min < right_min:
+        print("  [EMERGENCY] Snúa hægri")
+        _send_motors(SPEED_SLOW, SPEED_SLOW)
+    else:
+        print("  [EMERGENCY] Snúa vinstri")
+        _send_motors(-SPEED_SLOW, -SPEED_SLOW)
+
+    time.sleep(TURN_TIME * 0.6)
     stop()
