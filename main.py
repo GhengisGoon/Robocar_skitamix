@@ -8,7 +8,6 @@ from constants import (
 from sensor import get_scan, stop_lidar
 from motor  import drive, stop, emergency_reverse
 
-
 def choose_offset(zones, speed_level):
     """
     Reiknar beygju-offset út frá hólfum.
@@ -29,14 +28,14 @@ def choose_offset(zones, speed_level):
     if left_blocked and not right_blocked:
         return -offset_val    # vinstri lokuð → beygja hægri
     if right_blocked and not left_blocked:
-        return offset_val   # hægri lokuð  → beygja vinstri
+        return offset_val     # hægri lokuð  → beygja vinstri
 
     # Nota fram-hólf - beygja í átt að frjálsara svæði
     lf = left_front  if left_front  is not None else 999
     rf = right_front if right_front is not None else 999
 
     if lf > rf:
-        return offset_val   # vinstri frjálsara → beygja vinstri
+        return offset_val     # vinstri frjálsara → beygja vinstri
     if rf > lf:
         return -offset_val    # hægri frjálsara  → beygja hægri
     return 0
@@ -61,23 +60,22 @@ def main():
                 f"EMG={emg}"
             )
 
-            #  1. Emergency - eitthvað < 12cm í 280°–80°
+            # 1. Emergency - eitthvað < 12cm í 280°–80°
             if emg is not None and emg < EMERGENCY_DIST:
-                emergency_reverse()
+                emergency_reverse(zones)
                 continue
 
-            #  2. Hindrun nálægt beint fram → hægt + stór beygja
+            # 2. Hindrun nálægt beint fram → hægt + stór beygja
             if front is not None and front < THRESHOLD_MEDIUM:
                 offset = choose_offset(zones, 'slow')
                 drive(SPEED_SLOW, offset)
 
-            #  3. Hindrun í miðlungs fjarlægð → miðlungs + lítil beygja
+            # 3. Hindrun í miðlungs fjarlægð → miðlungs + lítil beygja
             elif front is not None and front < THRESHOLD_FAST:
                 offset = choose_offset(zones, 'medium')
                 drive(SPEED_MEDIUM, offset)
 
-           
-            #  4. Frjálst → fullur hraði beint áfram 
+            # 4. Frjálst → fullur hraði beint áfram
             else:
                 drive(SPEED_FAST)
 
