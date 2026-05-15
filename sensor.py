@@ -43,6 +43,7 @@ time.sleep(2)  # bíða eftir fyrsta scan
 
 
 def stop_lidar():
+    """Stoppum the mf lidar"""
     global _running
     _running = False
     lidar.stop()
@@ -51,8 +52,8 @@ def stop_lidar():
 
 
 def _in_zone(angle, zone_min, zone_max):
-    """Athugar hvort gráða sé innan hólfs, tekur tillit til wrap-around yfir 0°."""
-    if zone_min > zone_max:  # wrap-around (t.d. 345°–15°)
+    """Athugar hvort gráða sé innan hólfs, Skoðar yfir 0° +-."""
+    if zone_min > zone_max:  # wrap-around (td 345°–15°)
         return angle >= zone_min or angle <= zone_max
     return zone_min <= angle <= zone_max
 

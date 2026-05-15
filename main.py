@@ -1,7 +1,4 @@
 import time
-import pygame
-pygame.mixer.init()  # Initialize the mixer module.
-sound1 = pygame.mixer.Sound('/home/skitamixvol3/Downloads/Rammstein-Du hast .mp3')  # Load a sound.
 from constants import (
     THRESHOLD_FAST, THRESHOLD_MEDIUM,
     SPEED_FAST, SPEED_MEDIUM, SPEED_SLOW,
@@ -11,8 +8,6 @@ from constants import (
 from sensor import get_scan, stop_lidar
 from motor  import drive, stop, emergency_reverse
 
-import lcd_display as lcd
-from lcd_display import determine_direction
 
 def choose_offset(zones, speed_level):
     """
@@ -52,31 +47,18 @@ def main():
     print("  HVR1013 Robot - RPLiDAR S2")
     print("═" * 40)
     time.sleep(1)
-    sound1.play()  # Play the sound.
-    # Start LCD display
-    lcd.start_display()
-
 
     try:
         while True:
-           
             zones = get_scan()
             front = zones['front']
             emg   = zones['emergency']
 
-            # Determine direction for LCD
-            direction, distance = determine_direction(zones)
-            
-            # Update LCD display
-            lcd.set_direction(direction, distance)
-            
-            # Get CPU temperature (optional - for console output)
-            cpu_temp = lcd.get_cpu_temp()
-
             print(
-                f"CPU:{cpu_temp:.0f}C | Dir:{direction} | Dist:{distance:.0f}cm | "
-                f"F={front} LF={zones['left_front']} RF={zones['right_front']} "
-                f"LS={zones['left_side']} RS={zones['right_side']} EMG={emg}"
+                f"F={front}  "
+                f"LF={zones['left_front']}  RF={zones['right_front']}  "
+                f"LS={zones['left_side']}  RS={zones['right_side']}  "
+                f"EMG={emg}"
             )
 
             #  1. Emergency - eitthvað < 12cm í 280°–80°

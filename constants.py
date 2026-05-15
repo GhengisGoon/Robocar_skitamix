@@ -1,7 +1,7 @@
 # ── Hraðar ──────────────────────────────────────────────
 SPEED_FAST   = 240
 SPEED_MEDIUM = 170
-SPEED_SLOW   = 80
+SPEED_SLOW   = 100
 
 # ── Þröskuldar (cm) ──────────────────────────────────────
 THRESHOLD_FAST      = 60    # > 60cm → full speed
@@ -26,14 +26,14 @@ ZONE_RIGHT_FRONT_MAX = 70
 
 # Hægri hlið
 ZONE_RIGHT_SIDE_MIN  = 70
-ZONE_RIGHT_SIDE_MAX  = 130
+ZONE_RIGHT_SIDE_MAX  = 115
 
 # Vinstri fram
 ZONE_LEFT_FRONT_MIN  = 290
 ZONE_LEFT_FRONT_MAX  = 345
 
 # Vinstri hlið
-ZONE_LEFT_SIDE_MIN   = 230
+ZONE_LEFT_SIDE_MIN   = 245
 ZONE_LEFT_SIDE_MAX   = 290
 
 # ── Tímar ────────────────────────────────────────────────
